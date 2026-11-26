@@ -1,0 +1,52 @@
+{
+  "slug": "fokus-rejimi",
+  "exe_name": "FokusRejimi",
+  "version": "1.0.0",
+  "accent": "#3f8f6b",
+  "font": "Corbel",
+  "icon_text": "F",
+  "folder": "Fokus rejimi",
+  "screenshot_size": [1040, 700],
+  "palette": {
+    "light": {"bg": "#f3f5f1", "surface": "#ffffff", "surface2": "#e9eee7", "border": "#d6ddd3",
+              "text": "#1b2420", "muted": "#64716a", "hover": "#e2e9df"},
+    "dark": {"bg": "#131916", "surface": "#1a221e", "surface2": "#222c27", "border": "#2e3a34",
+             "text": "#e4ebe6", "muted": "#8fa097", "hover": "#25302b"}
+  },
+  "name": {"uz": "Fokus rejimi", "ru": "Режим фокуса", "en": "Focus Mode"},
+  "description": {
+    "uz": "Pomodoro taymeri: fokus va tanaffuslarni boshqaradi, ish vaqtida chalg'ituvchi dasturlar va saytlarni bloklaydi, kunlik statistika yuritadi.",
+    "ru": "Таймер Помодоро: чередует фокус и перерывы, блокирует отвлекающие программы и сайты во время работы и ведёт статистику по дням.",
+    "en": "A Pomodoro timer that alternates focus and breaks, blocks distracting apps and websites while you work, and keeps daily statistics."
+  },
+  "features": {
+    "uz": ["Fokus, qisqa va uzun tanaffus; davomiyliklarni sozlash mumkin",
+           "Fokus vaqtida tanlangan dasturlarni ogohlantirib yopish yoki yig'ish",
+           "hosts fayli orqali saytlarni bloklash (ixtiyoriy, zaxira nusxa va avtomatik tiklash bilan)",
+           "Qat'iy rejim: sessiyani faqat ibora yozib to'xtatish mumkin",
+           "Kunlik maqsad, ketma-ket kunlar, 7 va 30 kunlik grafik",
+           "Tanaffusda butun ekranli eslatma, yumshoq ovozli signallar",
+           "Bildirishnoma sohasida qolgan vaqt ko'rsatiladi",
+           "O'zbek, rus, ingliz tillari; yorug' va qorong'i mavzu"],
+    "ru": ["Фокус, короткий и длинный перерыв; длительность настраивается",
+           "Закрытие или сворачивание выбранных программ во время фокуса с предупреждением",
+           "Блокировка сайтов через файл hosts (по желанию, с резервной копией и автоматическим восстановлением)",
+           "Строгий режим: прервать сессию можно только вводом фразы",
+           "Цель на день, серия дней, графики за 7 и 30 дней",
+           "Полноэкранное напоминание в перерыв, мягкие звуковые сигналы",
+           "Оставшееся время в области уведомлений",
+           "Узбекский, русский, английский; светлая и тёмная тема"],
+    "en": ["Focus, short and long breaks with configurable lengths",
+           "Closes or minimizes chosen apps during focus, after a warning",
+           "Optional website blocking through the hosts file, with backup and automatic cleanup",
+           "Strict mode: a session can only be interrupted by typing a phrase",
+           "Daily goal, day streak, 7 and 30 day charts",
+           "Full-screen break reminder and soft chimes",
+           "Remaining time shown in the notification area",
+           "Uzbek, Russian and English; light and dark themes"]
+  },
+  "category": "Unumdorlik",
+  "topics": ["pomodoro", "focus", "productivity", "website-blocker", "timer"],
+  "min_os": "Windows 10 (1809+) / Windows 11, x64",
+  "build": {"mode": "onefile", "hidden_imports": ["PySide6.QtMultimedia", "PySide6.QtSvg"]}
+}

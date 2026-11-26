@@ -1,0 +1,34 @@
+QWidget#Root { background: {bg}; }
+QLabel#Brand { font-size: 12pt; font-weight: 600; color: {text}; padding-left: 4px; }
+QLabel#TodayChip { color: {muted}; background: {surface}; border: 1px solid {border}; border-radius: 13px;
+    padding: 4px 12px; }
+QFrame#Segmented { background: {surface2}; border: 1px solid {border}; border-radius: 17px; }
+QPushButton#SegButton { background: transparent; border: none; border-radius: 14px; padding: 5px 18px;
+    min-height: 18px; color: {muted}; }
+QPushButton#SegButton:hover { color: {text}; }
+QPushButton#SegButton:checked { background: {surface}; color: {text}; font-weight: 600;
+    border: 1px solid {border}; }
+QFrame#Panel { background: {surface}; border: 1px solid {border}; border-radius: 14px; }
+QLabel#Section { font-size: 10pt; font-weight: 700; color: {muted}; letter-spacing: 1px; }
+QLabel#BigNumber { font-family: "Bahnschrift"; font-size: 22pt; font-weight: 300; color: {text}; }
+QLabel#KpiValue { font-family: "Bahnschrift"; font-size: 20pt; font-weight: 300; color: {text}; }
+QLabel#Phrase { font-size: 12pt; font-weight: 600; color: {accent}; padding: 6px 0; }
+QPushButton#BigPrimary { background: {accent}; color: white; border: 2px solid {accent}; border-radius: 23px;
+    font-size: 11pt; font-weight: 600; padding: 0 26px; min-height: 46px; max-height: 46px; }
+QPushButton#BigPrimary:hover { border-color: rgba(255,255,255,0.55); }
+QPushButton#BigPrimary:pressed { border-color: rgba(0,0,0,0.25); }
+QPushButton#RoundButton { background: {surface}; border: 1px solid {border}; border-radius: 23px; padding: 0;
+    min-height: 44px; max-height: 44px; min-width: 44px; max-width: 44px; }
+QPushButton#RoundButton:hover { background: {hover}; }
+QPushButton#RoundButton:disabled { background: transparent; }
+QPushButton#IconButton { background: transparent; border: none; border-radius: 6px; padding: 4px; min-height: 0; }
+QPushButton#IconButton:hover { background: {hover}; }
+QPushButton#Chip { background: transparent; border: 1px solid {border}; border-radius: 12px; padding: 3px 12px;
+    min-height: 0; color: {muted}; }
+QPushButton#Chip:checked { background: {accent}; border-color: {accent}; color: white; }
+QPushButton { border-radius: 8px; }
+QLineEdit, QSpinBox, QComboBox { border-radius: 8px; min-height: 22px; }
+QTableWidget, QListWidget { border-radius: 10px; }
+QScrollArea, QWidget#ScrollBody { background: transparent; }
+QListWidget::item { padding: 6px 8px; border-radius: 6px; }
+QTableWidget::item { padding: 0 6px; }

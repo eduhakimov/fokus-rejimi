@@ -94,6 +94,10 @@ class Segmented(QFrame):
             b.setObjectName("SegButton")
             b.setCheckable(True)
             b.setCursor(Qt.PointingHandCursor)
+            bf = QFont(b.font())
+            bf.setBold(True)
+            from PySide6.QtGui import QFontMetrics
+            b.setMinimumWidth(QFontMetrics(bf).horizontalAdvance(t) + 44)
             self.group.addButton(b, i)
             lay.addWidget(b)
             self.buttons.append(b)
@@ -259,7 +263,7 @@ class BarChart(QWidget):
         self.highlight_last = True
         self.empty_text = ""
         self.unit = ""
-        self.setMinimumHeight(180)
+        self.setMinimumHeight(130)
         self.setMouseTracking(True)
         self._bars: List[Tuple[QRectF, str]] = []
 

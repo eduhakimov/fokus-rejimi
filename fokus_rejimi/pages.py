@@ -565,7 +565,7 @@ class StatsPage(QWidget):
         cl.addLayout(head)
         self.chart = BarChart()
         cl.addWidget(self.chart, 1)
-        root.addWidget(chart_p, 3)
+        root.addWidget(chart_p, 5)
 
         tp = panel()
         tl = QVBoxLayout(tp)
@@ -587,7 +587,8 @@ class StatsPage(QWidget):
         tl.addWidget(self.table, 1)
         self.empty = muted(tr("stats_empty"))
         tl.addWidget(self.empty)
-        root.addWidget(tp, 2)
+        tp.setMinimumHeight(170)
+        root.addWidget(tp, 4)
         self.b7.clicked.connect(lambda: self._set_days(7))
         self.b30.clicked.connect(lambda: self._set_days(30))
 
@@ -647,6 +648,7 @@ class SettingsPage(QScrollArea):
         cfg = win.cfg
         self.setWidgetResizable(True)
         self.setFrameShape(QFrame.NoFrame)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         body = QWidget()
         body.setObjectName("ScrollBody")
         self.setWidget(body)
@@ -708,7 +710,7 @@ class SettingsPage(QScrollArea):
         self.strict.setChecked(bool(cfg["strict"]))
         f2.addRow(self.strict)
         self.phrase = QLineEdit(cfg["strict_phrase"] or tr("default_phrase"))
-        self.phrase.setMinimumWidth(260)
+        self.phrase.setMinimumWidth(200)
         self._row(f2, tr("phrase"), self.phrase)
         f2.addRow(muted(tr("strict_explain")))
         grid.addWidget(p2, 0, 1)

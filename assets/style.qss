@@ -23,8 +23,8 @@ QPushButton#RoundButton:hover { background: {hover}; }
 QPushButton#RoundButton:disabled { background: transparent; }
 QPushButton#IconButton { background: transparent; border: none; border-radius: 6px; padding: 4px; min-height: 0; }
 QPushButton#IconButton:hover { background: {hover}; }
-QPushButton#Chip { background: transparent; border: 1px solid {border}; border-radius: 12px; padding: 3px 12px;
-    min-height: 0; color: {muted}; }
+QPushButton#Chip { background: transparent; border: 1px solid {border}; border-radius: 12px; padding: 2px 12px;
+    min-height: 18px; color: {muted}; }
 QPushButton#Chip:checked { background: {accent}; border-color: {accent}; color: white; }
 QPushButton { border-radius: 8px; }
 QLineEdit, QSpinBox, QComboBox { border-radius: 8px; min-height: 22px; }

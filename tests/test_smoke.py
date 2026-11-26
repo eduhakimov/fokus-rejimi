@@ -55,3 +55,24 @@ def test_window_actions_safe():
     assert "game.exe" in [r["name"] for r in w.cfg["apps"]]
     assert "explorer.exe" not in [r["name"] for r in w.cfg["apps"]]
     w.close()
+
+
+def test_strict_mode_needs_phrase(monkeypatch):
+    _setup()
+    from PySide6.QtWidgets import QDialog
+    from fokus_rejimi import pages
+    from fokus_rejimi.window import MainWindow
+    w = MainWindow()
+    w.cfg.data["strict"] = True
+    w.toggle_timer()
+    assert w.timer.state == "running"
+    monkeypatch.setattr(pages.PhraseDialog, "exec", lambda self: QDialog.Rejected)
+    w.stop_timer()
+    w.skip_phase()
+    w.toggle_timer()
+    assert w.timer.state == "running" and w.timer.phase == "focus"
+    assert not w.page_block.apps_on.isEnabled()
+    monkeypatch.setattr(pages.PhraseDialog, "exec", lambda self: QDialog.Accepted)
+    w.stop_timer()
+    assert w.timer.state == "idle" and w.page_block.apps_on.isEnabled()
+    w.close()

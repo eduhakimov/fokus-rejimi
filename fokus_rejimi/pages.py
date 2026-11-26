@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QKeySequence
 from PySide6.QtWidgets import (QAbstractItemView, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
                                QFrame, QGridLayout, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QListWidget,
-                               QListWidgetItem, QPushButton, QScrollArea, QSlider, QSpinBox, QTableWidget,
+                               QListWidgetItem, QPushButton, QScrollArea, QSizePolicy, QSlider, QSpinBox, QTableWidget,
                                QTableWidgetItem, QVBoxLayout, QWidget)
 
 from uzkit.i18n import language, tr
@@ -663,6 +663,7 @@ class SettingsPage(QScrollArea):
             s.setValue(int(val))
             s.setSuffix(" " + suffix)
             s.setMinimumWidth(130)
+            s.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             return s
 
         def form(panel_):
@@ -671,7 +672,7 @@ class SettingsPage(QScrollArea):
             f_.setVerticalSpacing(10)
             f_.setHorizontalSpacing(14)
             f_.setLabelAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-            f_.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
+            f_.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
             return f_
 
         # timer
@@ -685,6 +686,7 @@ class SettingsPage(QScrollArea):
         self.every.setRange(1, 12)
         self.every.setValue(int(cfg["long_every"]))
         self.every.setMinimumWidth(130)
+        self.every.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.every.setSuffix(" " + tr("sessions"))
         self._row(f, tr("phase_focus"), self.focus)
         self._row(f, tr("phase_short"), self.short)

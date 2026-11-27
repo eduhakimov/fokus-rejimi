@@ -45,6 +45,14 @@ Pomodoro taymeri: fokus va tanaffuslarni boshqaradi, ish vaqtida chalg'ituvchi d
 
 **Tizim talablari:** Windows 10 (1809+) / Windows 11, x64
 
+## Hujjatlar
+
+- [Ilmiy maqola](docs/materiallar/ILMIY-MAQOLA.md)
+- [Foydalanish qo‘llanmasi](docs/materiallar/FOYDALANISH-QOLLANMASI.md)
+- [Uslubiy ko‘rsatma](docs/materiallar/USLUBIY-KORSATMA.md)
+
+Word formatida: [foydalanish qo‘llanmasi](docs/materiallar/Fokus%20rejimi%20-%20foydalanish%20qo‘llanmasi.docx) · [ilmiy maqola](docs/materiallar/Fokus%20rejimi%20-%20ilmiy%20maqola.docx) · [uslubiy ko‘rsatma](docs/materiallar/Fokus%20rejimi%20-%20uslubiy%20ko‘rsatma.docx)
+
 ---
 
 ## Русский

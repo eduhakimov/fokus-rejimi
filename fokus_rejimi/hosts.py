@@ -17,6 +17,7 @@ _log = logging.getLogger("hosts")
 
 MARK_START = "# >>> FokusRejimi start"
 MARK_END = "# <<< FokusRejimi end"
+EOL_FLAG = " +eol"    # start marker suffix: a line break was added in front of the block
 SYSTEM_HOSTS = Path(os.environ.get("SystemRoot", r"C:\Windows")) / "System32" / "drivers" / "etc" / "hosts"
 
 DEFAULT_SITES = ["youtube.com", "instagram.com", "tiktok.com", "facebook.com", "x.com", "reddit.com"]
@@ -50,9 +51,9 @@ def expand(domains: Iterable[str]) -> List[str]:
     return out
 
 
-def build_block(domains: Iterable[str], nl: str = "\r\n") -> str:
+def build_block(domains: Iterable[str], nl: str = "\r\n", added_eol: bool = False) -> str:
     hosts = expand(domains)
-    lines = [MARK_START] + [f"0.0.0.0 {h}" for h in hosts] + [MARK_END]
+    lines = [MARK_START + (EOL_FLAG if added_eol else "")] + [f"0.0.0.0 {h}" for h in hosts] + [MARK_END]
     return nl.join(lines) + nl
 
 
@@ -65,8 +66,12 @@ def strip_block(text: str) -> str:
     out, inside = [], False
     for line in text.splitlines(keepends=True):
         s = line.strip()
-        if s == MARK_START:
+        if s in (MARK_START, MARK_START + EOL_FLAG):
             inside = True
+            if s.endswith(EOL_FLAG) and out:
+                # the line break added in front of the block goes away with it
+                last = out[-1]
+                out[-1] = last[:-2] if last.endswith("\r\n") else last.rstrip("\r\n")
             continue
         if inside:
             if s == MARK_END:
@@ -78,15 +83,18 @@ def strip_block(text: str) -> str:
 
 
 def _detect_newline(text: str) -> str:
-    return "\r\n" if "\r\n" in text or not text else "\n"
+    if "\r\n" in text:
+        return "\r\n"
+    return "\n" if "\n" in text else "\r\n"     # Windows default when the file has no line break yet
 
 
 def add_block(text: str, domains: Iterable[str]) -> str:
     base = strip_block(text)
     nl = _detect_newline(text)
-    if base and not base.endswith(("\n", "\r")):
+    added = bool(base) and not base.endswith(("\n", "\r"))
+    if added:
         base += nl
-    return base + build_block(domains, nl)
+    return base + build_block(domains, nl, added_eol=added)
 
 
 def _flush_dns():
@@ -102,22 +110,33 @@ class HostsManager:
         self.path = Path(path)
         self.backup_dir = Path(backup_dir)
         self.flush = flush
+        self._encoding = "utf-8"
 
     def read(self) -> str:
         data = self.path.read_bytes()
         for enc in ("utf-8-sig", "cp1252", "latin-1"):
             try:
-                return data.decode(enc)
+                text = data.decode(enc)
             except UnicodeDecodeError:
                 continue
+            # the file is written back in the same encoding (with its BOM, if it had one),
+            # so removing the block gives the original bytes back
+            if enc == "utf-8-sig" and not data.startswith(b"\xef\xbb\xbf"):
+                enc = "utf-8"
+            self._encoding = enc
+            return text
+        self._encoding = "latin-1"
         return data.decode("latin-1", errors="replace")
+
+    def _encode(self, text: str) -> bytes:
+        return text.encode(self._encoding, errors="replace")
 
     def _write(self, text: str):
         # write next to the file and replace, so a crash never leaves a half-written hosts file
         tmp_fd, tmp = tempfile.mkstemp(dir=str(self.path.parent), prefix="hosts.", suffix=".tmp")
         try:
             with os.fdopen(tmp_fd, "wb") as f:
-                f.write(text.encode("utf-8"))
+                f.write(self._encode(text))
             os.replace(tmp, self.path)
         except Exception:
             try:
@@ -126,7 +145,7 @@ class HostsManager:
                 pass
             # some security tools lock replace on hosts; fall back to in-place write
             with open(self.path, "wb") as f:
-                f.write(text.encode("utf-8"))
+                f.write(self._encode(text))
 
     def is_blocked(self) -> bool:
         try:
